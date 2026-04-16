@@ -31,12 +31,12 @@ export function ReaderTopBar({ novelSlug, novelTitle, currentChapter, allChapter
   }, [novelSlug, prevChapter, nextChapter, router])
 
   const btnCls =
-    'flex h-10 w-10 items-center justify-center rounded border border-border text-muted ' +
+    'flex h-10 w-10 flex-shrink-0 items-center justify-center rounded border border-border text-muted ' +
     'transition-colors hover:text-gray-900 dark:hover:text-white hover:border-accent'
 
   return (
     <header className="sticky top-0.5 z-30 border-b border-border bg-white/90 dark:bg-bg-dark/90 backdrop-blur-sm">
-      <div className="flex h-12 items-center gap-2 px-4">
+      <div className="flex h-12 items-center gap-2 px-3 sm:px-4">
 
         <button
           onClick={() => document.dispatchEvent(new CustomEvent('open-sidebar'))}
@@ -66,10 +66,17 @@ export function ReaderTopBar({ novelSlug, novelTitle, currentChapter, allChapter
           <button className={btnCls} disabled aria-disabled="true" aria-label="No previous chapter" style={{ opacity: 0.3, cursor: 'default' }}>‹</button>
         )}
 
+        {/* Mobile: compact chapter label. Desktop: full dropdown */}
+        <span className="sm:hidden flex-1 min-w-0 text-center text-xs font-semibold text-gray-900 dark:text-white whitespace-nowrap">
+          Ch. {currentChapter.chapter}
+          <span className="text-muted font-normal"> / {allChapters.length}</span>
+        </span>
+
         <select
-          className="w-auto max-w-[260px] min-w-0 rounded border border-border bg-transparent px-2 py-1 text-xs text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-accent"
+          className="hidden sm:block w-auto max-w-[260px] min-w-0 rounded border border-border bg-transparent px-2 py-1 text-xs text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-accent"
           value={currentChapter.slug}
           onChange={e => router.push(`/novels/${novelSlug}/${e.target.value}`)}
+          aria-label="Jump to chapter"
         >
           {allChapters.map(ch => (
             <option key={ch.slug} value={ch.slug}>
@@ -91,8 +98,13 @@ export function ReaderTopBar({ novelSlug, novelTitle, currentChapter, allChapter
           <button className={btnCls} disabled aria-disabled="true" aria-label="No next chapter" style={{ opacity: 0.3, cursor: 'default' }}>›</button>
         )}
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto hidden sm:flex items-center gap-2">
           <FontControls />
+          <ThemeToggle />
+        </div>
+
+        {/* Mobile: only theme toggle in top bar; font controls reachable via sidebar */}
+        <div className="sm:hidden flex items-center">
           <ThemeToggle />
         </div>
       </div>

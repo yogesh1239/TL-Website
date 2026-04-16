@@ -41,6 +41,16 @@ export default function NovelPage({ params }: Props) {
             <p className="text-[14px] leading-[1.85] text-white/50 max-w-xl">
               {novel.description}
             </p>
+            {novel.author && (
+              <p className="mt-4 text-[11px] uppercase tracking-widest text-white/40 font-bold">
+                Author · {novel.author}
+              </p>
+            )}
+            {novel.translator && (
+              <p className="mt-1 text-[11px] uppercase tracking-widest text-white/40 font-bold">
+                Translated by · {novel.translator}
+              </p>
+            )}
             <p className="mt-5 text-[11px] uppercase tracking-widest text-white/25 font-bold">
               {novel.totalChapters} chapters &nbsp;·&nbsp; Last updated {novel.updatedAt}
             </p>

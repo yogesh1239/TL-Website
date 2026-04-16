@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { getLastChapter } from '@/lib/progress'
+import { getLastChapter, getReadChapters } from '@/lib/progress'
 import type { Chapter } from '@/types'
 
 const PER_PAGE_OPTIONS = [25, 50, 75, 100] as const
@@ -16,11 +16,13 @@ export function ChapterListClient({
 }) {
   const [sortDesc, setSortDesc] = useState(true)
   const [lastChapter, setLastChapter] = useState<number | null>(null)
+  const [readSet, setReadSet] = useState<Set<number>>(new Set())
   const [perPage, setPerPage] = useState<PerPage>(50)
   const [page, setPage] = useState(1)
 
   useEffect(() => {
     setLastChapter(getLastChapter(novelSlug))
+    setReadSet(getReadChapters(novelSlug))
   }, [novelSlug])
 
   // Reset to page 1 when sort or perPage changes
@@ -42,7 +44,7 @@ export function ChapterListClient({
       {lastChapter !== null && (
         <Link
           href={`/novels/${novelSlug}/ch-${String(lastChapter).padStart(3, '0')}`}
-          className="mb-6 flex items-center gap-3 border border-accent bg-accent/5 px-5 py-3 text-sm font-semibold text-accent hover:bg-accent/10 transition-colors"
+          className="mb-6 flex items-center gap-3 border border-accent dark:border-accent-gold bg-accent/5 px-5 py-3 text-sm font-semibold text-accent dark:text-accent-gold hover:bg-accent/10 transition-colors"
         >
           <span>▶</span>
           <span>Continue Reading — Chapter {lastChapter}</span>
@@ -64,7 +66,7 @@ export function ChapterListClient({
                 onClick={() => setPerPage(n)}
                 className={`px-2 py-0.5 text-[11px] font-bold transition-colors ${
                   perPage === n
-                    ? 'text-accent border-b-2 border-accent'
+                    ? 'text-accent dark:text-accent-gold border-b-2 border-accent dark:border-accent-gold'
                     : 'text-muted hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent'
                 }`}
               >
@@ -90,15 +92,17 @@ export function ChapterListClient({
             href={`/novels/${novelSlug}/${ch.slug}`}
             className="group flex items-center gap-4 px-4 py-3.5 hover:bg-gray-50 dark:hover:bg-gray-800/60 transition-colors"
           >
-            <span className="w-10 flex-shrink-0 text-center text-[11px] font-black tracking-widest text-muted group-hover:text-accent transition-colors">
+            <span className="w-10 flex-shrink-0 text-center text-[11px] font-black tracking-widest text-muted group-hover:text-accent dark:group-hover:text-accent-gold transition-colors">
+              {readSet.has(ch.chapter) && (
+                <span className="mr-1 text-accent-gold text-[10px]">✓</span>
+              )}
               {String(ch.chapter).padStart(3, '0')}
             </span>
             <div className="flex-1 min-w-0">
-              <p className="text-[13px] font-semibold text-gray-900 dark:text-white truncate group-hover:text-accent transition-colors">
+              <p className="text-[13px] font-semibold text-gray-900 dark:text-white truncate group-hover:text-accent dark:group-hover:text-accent-gold transition-colors">
                 {ch.title}
               </p>
             </div>
-            <span className="flex-shrink-0 text-[11px] text-muted">{ch.published}</span>
           </Link>
         ))}
       </div>

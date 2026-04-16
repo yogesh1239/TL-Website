@@ -5,6 +5,8 @@ export interface Novel {
   status: 'ongoing' | 'completed' | 'hiatus'
   genres: string[]
   description: string
+  author?: string        // optional — render only if present
+  translator?: string    // optional — render only if present
   totalChapters: number  // populated by content.ts
   latestChapter: number  // populated by content.ts
   updatedAt: string      // ISO date of newest chapter

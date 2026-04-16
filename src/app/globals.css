@@ -70,3 +70,12 @@ body {
 [data-font-size='compact'] .prose-reader p { font-size: 16px; line-height: 1.7; }
 [data-font-size='default'] .prose-reader p { font-size: 17.5px; line-height: 1.9; }
 [data-font-size='relaxed'] .prose-reader p { font-size: 19px; line-height: 2.1; }
+
+/* #12 — mobile reader font size */
+@media (max-width: 639px) {
+  [data-font-size='default'] .prose-reader p { font-size: 16px; line-height: 1.7; }
+}
+
+/* Scrollbar hide utility */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

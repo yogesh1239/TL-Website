@@ -1,14 +1,15 @@
-import { getAllNovels } from '@/lib/content'
+import { getAllNovels, getChapters } from '@/lib/content'
 import { HeroBanner } from '@/components/HeroBanner'
 import { GenreFilter } from '@/components/GenreFilter'
 
 export default function HomePage() {
   const novels = getAllNovels()
   const featured = novels[0]
+  const featuredFirstChapter = featured ? getChapters(featured.slug)[0] : undefined
 
   return (
     <>
-      {featured && <HeroBanner novel={featured} />}
+      {featured && <HeroBanner novel={featured} firstChapter={featuredFirstChapter} />}
       <section className="mx-auto max-w-7xl px-6 py-14">
         <div className="flex items-center gap-4 mb-10">
           <div className="h-px flex-1 bg-border" />

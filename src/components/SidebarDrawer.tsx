@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { CoverImage } from './CoverImage'
+import { FontControls } from './FontControls'
 import type { Chapter } from '@/types'
 
 interface Props {
@@ -66,6 +67,12 @@ export function SidebarDrawer({ novelSlug, chapters, currentChapterNum }: Props)
           </p>
         </div>
 
+        {/* Font size controls — primarily for mobile where the top bar omits them */}
+        <div className="sm:hidden flex items-center justify-between gap-3 border-b border-border px-4 py-3">
+          <span className="text-[10px] font-bold uppercase tracking-widest text-muted">Text size</span>
+          <FontControls />
+        </div>
+
         <div className="flex-1 overflow-y-auto">
           {chapters.map(ch => (
             <Link
@@ -74,7 +81,7 @@ export function SidebarDrawer({ novelSlug, chapters, currentChapterNum }: Props)
               onClick={() => setOpen(false)}
               className={`flex items-center gap-3 border-l-2 px-4 py-2.5 transition-colors ${
                 ch.chapter === currentChapterNum
-                  ? 'border-accent bg-accent/5 text-accent'
+                  ? 'border-accent bg-accent/5 text-accent dark:border-accent-gold dark:text-accent-gold'
                   : 'border-transparent text-muted hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800'
               }`}
             >

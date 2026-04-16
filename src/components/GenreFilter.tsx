@@ -11,14 +11,14 @@ export function GenreFilter({ novels }: { novels: Novel[] }) {
 
   return (
     <>
-      <div className="flex flex-wrap gap-x-1 gap-y-2 mb-10 border-b border-border pb-px">
+      <div className="flex flex-nowrap overflow-x-auto no-scrollbar gap-x-1 mb-10 border-b border-border pb-px">
         {allGenres.map(genre => (
           <button
             key={genre}
             onClick={() => setActive(genre)}
-            className={`relative px-3 py-2 text-[11px] font-black uppercase tracking-[0.18em] transition-all duration-200 ${
+            className={`relative px-2 sm:px-3 py-2 text-[11px] font-black uppercase tracking-[0.18em] transition-all duration-200 flex-shrink-0 ${
               active === genre
-                ? 'text-accent border-b-2 border-accent -mb-px'
+                ? 'text-accent dark:text-accent-gold border-b-2 border-accent dark:border-accent-gold -mb-px'
                 : 'text-muted hover:text-gray-900 dark:hover:text-white border-b-2 border-transparent -mb-px'
             }`}
           >
@@ -26,7 +26,7 @@ export function GenreFilter({ novels }: { novels: Novel[] }) {
           </button>
         ))}
       </div>
-      <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 md:grid-cols-3">
         {filtered.map(novel => (
           <NovelCard key={novel.slug} novel={novel} />
         ))}

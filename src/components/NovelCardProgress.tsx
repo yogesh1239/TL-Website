@@ -24,7 +24,7 @@ export function NovelCardProgress({
       </p>
       <div className="mt-2 h-0.5 rounded bg-border">
         <div
-          className="h-full rounded bg-accent transition-all duration-300"
+          className={`h-full rounded transition-all duration-300 ${readCount > 0 ? 'bg-accent' : 'bg-transparent'}`}
           style={{ width: `${pct}%` }}
         />
       </div>

@@ -30,15 +30,22 @@ export default function ChapterPage({ params }: Props) {
       />
 
       <article className="mx-auto max-w-reader px-6 py-12">
-        <p className="font-inter text-[10px] font-bold uppercase tracking-widest text-accent mb-3">
+        <p className="font-inter text-[10px] font-bold uppercase tracking-widest text-accent dark:text-accent-gold mb-3">
           {params.slug.replace(/-/g, ' ')}
         </p>
-        <h1 className="font-playfair text-3xl font-bold leading-snug text-gray-900 dark:text-white mb-2">
-          Chapter {chapter.chapter} — {chapter.title}
+        <h1
+          className="font-playfair text-3xl font-bold leading-snug text-gray-900 dark:text-white mb-2"
+          style={{ fontVariantNumeric: 'lining-nums tabular-nums' }}
+        >
+          Chapter <span className="tabular-nums">{chapter.chapter}</span> — {chapter.title}
         </h1>
-        <p className="font-inter text-xs text-muted mb-10 pb-8 border-b border-border">
-          {chapter.published}
-        </p>
+        <div className="border-b border-border mb-10 pb-8">
+          {chapter.published && chapter.published !== '2026-01-01' && (
+            <p className="font-inter text-xs text-muted">
+              {chapter.published}
+            </p>
+          )}
+        </div>
 
         <div
           className="prose-reader"
@@ -73,6 +80,15 @@ export default function ChapterPage({ params }: Props) {
             )}
           </div>
         </div>
+
+        <p className="mt-10 text-center">
+          <Link
+            href={`/novels/${params.slug}`}
+            className="font-inter text-xs text-muted hover:text-gray-900 dark:hover:text-white transition-colors"
+          >
+            ← Back to all chapters
+          </Link>
+        </p>
       </article>
     </div>
   )

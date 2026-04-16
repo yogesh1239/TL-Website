@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Playfair_Display, Lora, Inter } from 'next/font/google'
 import { ThemeProvider } from 'next-themes'
 import { Navbar } from '@/components/Navbar'
+import { NavbarShell } from '@/components/NavbarShell'
 import { Footer } from '@/components/Footer'
 import './globals.css'
 
@@ -33,7 +34,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfair.variable} ${lora.variable} ${inter.variable} font-inter antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
+          <NavbarShell>
+            <Navbar />
+          </NavbarShell>
           <main>{children}</main>
           <Footer />
         </ThemeProvider>

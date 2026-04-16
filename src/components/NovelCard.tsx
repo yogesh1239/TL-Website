@@ -26,10 +26,10 @@ export function NovelCard({ novel }: { novel: Novel }) {
 
       {/* Info */}
       <div className="pt-2.5 pb-1">
-        <p className="mb-0.5 text-[9px] font-black uppercase tracking-[0.2em] text-accent">
+        <p className="mb-0.5 text-[9px] font-black uppercase tracking-[0.2em] text-accent dark:text-accent-gold">
           {novel.genres[0]}
         </p>
-        <h3 className="font-playfair text-[13px] font-bold leading-snug text-gray-900 dark:text-white/90 line-clamp-2 transition-colors duration-200 group-hover:text-accent">
+        <h3 className="font-playfair text-[13px] font-bold leading-snug text-gray-900 dark:text-white/90 line-clamp-2 transition-colors duration-200 group-hover:text-accent dark:group-hover:text-accent-gold">
           {novel.title}
         </h3>
         <NovelCardProgress novelSlug={novel.slug} totalChapters={novel.totalChapters} />

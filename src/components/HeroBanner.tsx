@@ -1,8 +1,15 @@
 import Link from 'next/link'
 import { CoverImage } from './CoverImage'
+import { ContinueReadingButton } from './ContinueReadingButton'
 import type { Novel } from '@/types'
+import type { Chapter } from '@/types'
 
-export function HeroBanner({ novel }: { novel: Novel }) {
+interface HeroBannerProps {
+  novel: Novel
+  firstChapter?: Chapter
+}
+
+export function HeroBanner({ novel, firstChapter }: HeroBannerProps) {
   return (
     <section className="relative overflow-hidden px-6 py-20" style={{ background: 'linear-gradient(135deg, #110806 0%, #2a0f0a 40%, #1a0808 70%, #0d0505 100%)' }}>
       {/* Radial red glow left */}
@@ -55,15 +62,23 @@ export function HeroBanner({ novel }: { novel: Novel }) {
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-5">
-            <Link
-              href={`/novels/${novel.slug}/ch-001`}
-              className="group inline-flex items-center gap-2.5 bg-accent px-7 py-3 text-[11px] font-black uppercase tracking-[0.2em] text-white transition-all duration-200 hover:bg-white hover:text-accent"
-            >
-              Start Reading
-              <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
+            {firstChapter ? (
+              <ContinueReadingButton
+                novelSlug={novel.slug}
+                firstChapterSlug={firstChapter.slug}
+                firstChapterNumber={firstChapter.chapter}
+              />
+            ) : (
+              <Link
+                href={`/novels/${novel.slug}/ch-001`}
+                className="group inline-flex items-center gap-2.5 bg-accent px-7 py-3 text-[11px] font-black uppercase tracking-[0.2em] text-white transition-all duration-200 hover:bg-white hover:text-accent"
+              >
+                Start Reading
+                <svg className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
+            )}
             <Link
               href={`/novels/${novel.slug}`}
               className="text-[11px] font-bold uppercase tracking-[0.2em] text-white/40 underline-offset-4 transition-colors hover:text-white/80 hover:underline"

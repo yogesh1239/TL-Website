@@ -8,7 +8,9 @@ export function SearchDropdown({ searchIndex: index }: { searchIndex: SearchItem
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<SearchItem[]>([])
   const [open, setOpen] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
+  const mobileInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     setResults(searchIndex(index, query))
@@ -17,36 +19,32 @@ export function SearchDropdown({ searchIndex: index }: { searchIndex: SearchItem
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false)
+        setMobileOpen(false)
+      }
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  return (
-    <div ref={ref} className="relative">
-      <div className="flex items-center gap-2 rounded-lg border border-border bg-gray-50 dark:bg-gray-800 px-3 py-1.5 w-48 focus-within:border-accent transition-colors">
-        <span className="text-xs text-muted">🔍</span>
-        <input
-          type="text"
-          placeholder="Search..."
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          className="flex-1 bg-transparent text-xs text-gray-900 dark:text-white placeholder:text-muted outline-none"
-        />
-      </div>
+  useEffect(() => {
+    if (mobileOpen) mobileInputRef.current?.focus()
+  }, [mobileOpen])
 
+  const resultsList = (extraCls = '') => (
+    <>
       {open && results.length > 0 && (
-        <div className="absolute right-0 top-10 z-50 w-72 rounded-lg border border-border bg-white dark:bg-gray-900 shadow-xl overflow-hidden">
+        <div className={`absolute right-0 top-10 z-50 w-72 rounded-lg border border-border bg-white dark:bg-gray-900 shadow-xl overflow-hidden ${extraCls}`}>
           {results.map((item, i) => (
             <Link
               key={i}
               href={item.url}
-              onClick={() => { setQuery(''); setOpen(false) }}
+              onClick={() => { setQuery(''); setOpen(false); setMobileOpen(false) }}
               className="flex items-start gap-3 px-4 py-2.5 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             >
               <span className={`mt-0.5 text-[10px] font-bold uppercase tracking-wide flex-shrink-0 ${
-                item.type === 'novel' ? 'text-accent' : 'text-muted'
+                item.type === 'novel' ? 'text-accent dark:text-accent-gold' : 'text-muted'
               }`}>
                 {item.type === 'novel' ? 'Novel' : `Ch.${item.title.match(/Ch\.\s*(\d+)/)?.[1] ?? ''}`}
               </span>
@@ -64,10 +62,54 @@ export function SearchDropdown({ searchIndex: index }: { searchIndex: SearchItem
       )}
 
       {open && results.length === 0 && (
-        <div className="absolute right-0 top-10 z-50 w-56 rounded-lg border border-border bg-white dark:bg-gray-900 shadow-xl p-4 text-center">
-          <p className="text-xs text-muted">No results for "{query}"</p>
+        <div className={`absolute right-0 top-10 z-50 w-56 rounded-lg border border-border bg-white dark:bg-gray-900 shadow-xl p-4 text-center ${extraCls}`}>
+          <p className="text-xs text-muted">No results for &quot;{query}&quot;</p>
         </div>
       )}
+    </>
+  )
+
+  return (
+    <div ref={ref} className="relative">
+      {/* Desktop / >= sm: inline search field */}
+      <div className="hidden sm:flex items-center gap-2 rounded-lg border border-border bg-gray-50 dark:bg-gray-800 px-3 py-1.5 w-48 focus-within:border-accent transition-colors">
+        <span className="text-xs text-muted" aria-hidden="true">🔍</span>
+        <input
+          type="text"
+          placeholder="Search..."
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          className="flex-1 min-w-0 bg-transparent text-xs text-gray-900 dark:text-white placeholder:text-muted outline-none"
+        />
+      </div>
+
+      {/* Mobile: icon button that toggles a search field */}
+      <button
+        type="button"
+        onClick={() => setMobileOpen(o => !o)}
+        className="sm:hidden flex h-8 w-8 items-center justify-center rounded-lg border border-border text-muted hover:text-gray-900 dark:hover:text-white transition-colors"
+        aria-label="Toggle search"
+      >
+        🔍
+      </button>
+
+      {mobileOpen && (
+        <div className="sm:hidden absolute right-0 top-10 z-50 w-64 rounded-lg border border-border bg-white dark:bg-gray-900 shadow-xl p-2">
+          <div className="flex items-center gap-2 rounded border border-border bg-gray-50 dark:bg-gray-800 px-3 py-1.5 focus-within:border-accent transition-colors">
+            <span className="text-xs text-muted" aria-hidden="true">🔍</span>
+            <input
+              ref={mobileInputRef}
+              type="text"
+              placeholder="Search..."
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+              className="flex-1 min-w-0 bg-transparent text-xs text-gray-900 dark:text-white placeholder:text-muted outline-none"
+            />
+          </div>
+        </div>
+      )}
+
+      {resultsList()}
     </div>
   )
 }
