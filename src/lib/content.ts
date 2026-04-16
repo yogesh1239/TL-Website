@@ -69,7 +69,9 @@ export function getChapters(slug: string, contentDir: string = DEFAULT_CONTENT_D
       title: data.title,
       chapter: data.chapter,
       novel: slug,
-      published: data.published ?? '',
+      published: data.published instanceof Date
+        ? data.published.toISOString().slice(0, 10)
+        : (data.published ?? ''),
       slug: chapterSlug(data.chapter),
     }
   })
@@ -101,7 +103,9 @@ export function getChapter(
     title: data.title,
     chapter: data.chapter,
     novel: novelSlug,
-    published: data.published ?? '',
+    published: data.published instanceof Date
+      ? data.published.toISOString().slice(0, 10)
+      : (data.published ?? ''),
     slug: chapterSlugParam,
     contentHtml,
     prevChapter,
