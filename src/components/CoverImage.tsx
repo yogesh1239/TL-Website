@@ -2,6 +2,7 @@
 
 const GRADIENTS: Record<string, string> = {
   'slime-reincarnation': 'linear-gradient(160deg, #3d1c02, #8b4513 60%, #5c2d0a)',
+  'zhui-xu': 'linear-gradient(160deg, #0d1420, #1c2e4a 60%, #8b6914)',
   default: 'linear-gradient(160deg, #1a1a2e, #16213e 60%, #0f3460)',
 }
 
