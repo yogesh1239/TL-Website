@@ -1,8 +1,8 @@
 ---
-title: "That Time I Got Reincarnated as a Slime"
+title: "It's Perfectly Normal for my Slime to beat up a Dragon, Right?"
 slug: slime-reincarnation
-cover: /covers/slime-reincarnation.jpg
+cover: /covers/slime-reincarnation.webp
 status: ongoing
-genres: [Fantasy, Isekai, Adventure]
-description: "A lonely salaryman dies and wakes up as the most unassuming creature in a world of monsters and magic — a slime. But this slime has a gift for making friends and a knack for acquiring the most absurd abilities."
+genres: [Fantasy, Beast Taming, Comedy]
+description: "Chen Shu transmigrates into a world of beast taming — and gets bound to a god-level choice system. With each choice, his pets grow increasingly outrageous: a slime that crushes dragons, a husky that makes phoenixes cry, a beast that masters space itself. Common sense? Never heard of it."
 ---

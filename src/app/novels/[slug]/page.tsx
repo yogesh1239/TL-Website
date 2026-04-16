@@ -9,41 +9,48 @@ export default function NovelPage({ params }: Props) {
   const chapters = getChapters(params.slug)
 
   return (
-    <div className="mx-auto max-w-7xl px-6 py-10">
-      <div className="flex flex-col gap-8 md:flex-row md:items-start mb-12">
-        <CoverImage
-          src={novel.cover}
-          slug={novel.slug}
-          alt={novel.title}
-          className="h-72 w-48 flex-shrink-0 rounded-lg shadow-xl"
-        />
-        <div className="flex-1">
-          <div className="flex flex-wrap gap-2 mb-3">
-            {novel.genres.map(g => (
-              <span
-                key={g}
-                className="rounded-full bg-accent/10 px-3 py-0.5 text-xs font-semibold text-accent"
-              >
-                {g}
-              </span>
-            ))}
-            <span className="rounded-full bg-green-100 dark:bg-green-900/30 px-3 py-0.5 text-xs font-semibold text-green-700 dark:text-green-400 capitalize">
-              {novel.status}
-            </span>
+    <div>
+      {/* Dark header band */}
+      <div className="relative overflow-hidden px-6 py-16" style={{ background: 'linear-gradient(135deg, #110806 0%, #2a0f0a 50%, #0d0505 100%)' }}>
+        {/* Radial glow */}
+        <div className="pointer-events-none absolute -left-16 top-1/2 -translate-y-1/2 h-[400px] w-[400px] rounded-full opacity-20" style={{ background: 'radial-gradient(circle, #c0392b 0%, transparent 70%)' }} />
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 md:flex-row md:items-end">
+          <div className="relative flex-shrink-0">
+            <div className="absolute -inset-4 rounded-full opacity-40 blur-3xl" style={{ background: 'radial-gradient(circle, #c0392b 0%, transparent 70%)' }} />
+            <CoverImage
+              src={novel.cover}
+              slug={novel.slug}
+              alt={novel.title}
+              className="relative h-60 w-40 shadow-[0_32px_64px_rgba(0,0,0,0.8)] ring-1 ring-white/[0.08]"
+            />
           </div>
-          <h1 className="font-playfair text-3xl font-bold text-gray-900 dark:text-white leading-snug mb-4">
-            {novel.title}
-          </h1>
-          <p className="text-base leading-relaxed text-muted max-w-2xl">
-            {novel.description}
-          </p>
-          <p className="mt-4 text-xs text-muted">
-            {novel.totalChapters} chapters · Last updated {novel.updatedAt}
-          </p>
+          <div className="flex-1 pb-1">
+            <div className="flex flex-wrap gap-2 mb-4">
+              {novel.genres.map(g => (
+                <span key={g} className="border border-white/20 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-white/60">
+                  {g}
+                </span>
+              ))}
+              <span className="border border-green-500/30 px-2.5 py-0.5 text-[10px] font-black uppercase tracking-[0.2em] text-green-400/70 capitalize">
+                {novel.status}
+              </span>
+            </div>
+            <h1 className="font-playfair text-3xl font-bold leading-snug text-white md:text-4xl mb-4">
+              {novel.title}
+            </h1>
+            <p className="text-[14px] leading-[1.85] text-white/50 max-w-xl">
+              {novel.description}
+            </p>
+            <p className="mt-5 text-[11px] uppercase tracking-widest text-white/25 font-bold">
+              {novel.totalChapters} chapters &nbsp;·&nbsp; Last updated {novel.updatedAt}
+            </p>
+          </div>
         </div>
       </div>
 
-      <ChapterListClient novelSlug={novel.slug} chapters={chapters} />
+      <div className="mx-auto max-w-7xl px-6 py-10">
+        <ChapterListClient novelSlug={novel.slug} chapters={chapters} />
+      </div>
     </div>
   )
 }

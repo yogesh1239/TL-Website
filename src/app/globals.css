@@ -22,10 +22,21 @@
   --accent-gold: #c9a96e;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: var(--bg);
   color: var(--text);
   transition: background-color 0.2s, color 0.2s;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #c0392b22;
+  color: #c0392b;
 }
 
 /* Reader prose styles */
