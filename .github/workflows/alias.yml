@@ -6,7 +6,7 @@ on:
 
 jobs:
   alias:
-    name: Point forgottentranslations.vercel.app to latest deploy
+    name: Point lorepress.vercel.app to latest deploy
     runs-on: ubuntu-latest
     steps:
       - name: Wait for deployment and update alias
@@ -19,7 +19,7 @@ jobs:
           token = os.environ["VERCEL_TOKEN"]
           project_id = "prj_lXFu6k2ZEZjDa1BBLrMusWHe7CbJ"
           team_id = "team_85Ammg5shxrIK2eJHfMO0t9G"
-          alias = "forgottentranslations.vercel.app"
+          alias = "lorepress.vercel.app"
 
           def api(path, method="GET", body=None):
               req = urllib.request.Request(

@@ -1,6 +1,6 @@
-# Forgotten Translations — Project Guide
+# LorePress — Project Guide
 
-This is the **Forgotten Translations** webnovel translation website, live at https://forgottentranslations.vercel.app.
+This is the **LorePress** webnovel translation website, live at https://lorepress.vercel.app.
 
 ## What this site is
 
@@ -19,7 +19,7 @@ Yogesh is not a coder. Every conversation must follow these rules without except
 
 Use the `tl-website-workflow` skill at the start of every conversation. Do not wait to be asked. Open every conversation with:
 
-> "What would you like to change today on the Forgotten Translations website?"
+> "What would you like to change today on the LorePress website?"
 
 ## Technical reference (for subagents)
 
@@ -33,5 +33,5 @@ Use the `tl-website-workflow` skill at the start of every conversation. Do not w
 - Build: `cd "F:\TL Website" && npm run build`
 - Dev: `cd "F:\TL Website" && npm run dev` (port 3000, 3001, or 3002)
 - Deploy: `git push origin main` (Vercel auto-deploys) or `npx vercel --prod --yes` (immediate)
-- Live URL: https://forgottentranslations.vercel.app
+- Live URL: https://lorepress.vercel.app
 - GitHub repo: yogesh1239/TL-Website (main branch = production)
