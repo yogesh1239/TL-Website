@@ -10,6 +10,7 @@ interface Props { params: { slug: string; chapter: string } }
 export default function ChapterPage({ params }: Props) {
   const chapter = getChapter(params.slug, params.chapter)
   const allChapters = getChapters(params.slug)
+  const novel = getAllNovels().find(n => n.slug === params.slug)
 
   return (
     <div data-font-size="default">
@@ -18,13 +19,14 @@ export default function ChapterPage({ params }: Props) {
 
       <ReaderTopBar
         novelSlug={params.slug}
-        novelTitle={`← ${params.slug.replace(/-/g, ' ')}`}
+        novelTitle={`← ${novel?.title ?? params.slug.replace(/-/g, ' ')}`}
         currentChapter={chapter}
-        allChapters={allChapters}
       />
 
       <SidebarDrawer
         novelSlug={params.slug}
+        novelCover={novel?.cover ?? ''}
+        novelTitle={novel?.title ?? params.slug.replace(/-/g, ' ')}
         chapters={allChapters}
         currentChapterNum={chapter.chapter}
       />

@@ -10,10 +10,9 @@ interface Props {
   novelSlug: string
   novelTitle: string
   currentChapter: ChapterWithContent
-  allChapters: { slug: string; chapter: number; title: string }[]
 }
 
-export function ReaderTopBar({ novelSlug, novelTitle, currentChapter, allChapters }: Props) {
+export function ReaderTopBar({ novelSlug, novelTitle, currentChapter }: Props) {
   const router = useRouter()
   const { prevChapter, nextChapter } = currentChapter
 
@@ -37,6 +36,16 @@ export function ReaderTopBar({ novelSlug, novelTitle, currentChapter, allChapter
   return (
     <header className="sticky top-0.5 z-30 border-b border-border bg-white/90 dark:bg-bg-dark/90 backdrop-blur-sm">
       <div className="flex h-12 items-center gap-2 px-3 sm:px-4">
+
+        <Link
+          href="/"
+          className="font-playfair text-[15px] sm:text-[17px] font-black tracking-tight text-gray-900 dark:text-white whitespace-nowrap"
+          aria-label="LorePress home"
+        >
+          Lore<span className="text-accent dark:text-accent-gold">Press</span>
+        </Link>
+
+        <div className="hidden sm:block h-4 w-px bg-border mx-0.5" />
 
         <button
           onClick={() => document.dispatchEvent(new CustomEvent('open-sidebar'))}
@@ -66,24 +75,7 @@ export function ReaderTopBar({ novelSlug, novelTitle, currentChapter, allChapter
           <button className={btnCls} disabled aria-disabled="true" aria-label="No previous chapter" style={{ opacity: 0.3, cursor: 'default' }}>‹</button>
         )}
 
-        {/* Mobile: compact chapter label. Desktop: full dropdown */}
-        <span className="sm:hidden flex-1 min-w-0 text-center text-xs font-semibold text-gray-900 dark:text-white whitespace-nowrap">
-          Ch. {currentChapter.chapter}
-          <span className="text-muted font-normal"> / {allChapters.length}</span>
-        </span>
-
-        <select
-          className="hidden sm:block w-auto max-w-[260px] min-w-0 rounded border border-border bg-transparent px-2 py-1 text-xs text-gray-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-accent"
-          value={currentChapter.slug}
-          onChange={e => router.push(`/novels/${novelSlug}/${e.target.value}`)}
-          aria-label="Jump to chapter"
-        >
-          {allChapters.map(ch => (
-            <option key={ch.slug} value={ch.slug}>
-              Ch. {ch.chapter} — {ch.title}
-            </option>
-          ))}
-        </select>
+        <div className="flex-1" />
 
         {nextChapter ? (
           <Link

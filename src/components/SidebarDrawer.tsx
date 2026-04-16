@@ -7,11 +7,13 @@ import type { Chapter } from '@/types'
 
 interface Props {
   novelSlug: string
+  novelCover: string
+  novelTitle: string
   chapters: Chapter[]
   currentChapterNum: number
 }
 
-export function SidebarDrawer({ novelSlug, chapters, currentChapterNum }: Props) {
+export function SidebarDrawer({ novelSlug, novelCover, novelTitle, chapters, currentChapterNum }: Props) {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -57,13 +59,13 @@ export function SidebarDrawer({ novelSlug, chapters, currentChapterNum }: Props)
 
         <div className="flex items-center gap-3 border-b border-border px-4 py-3">
           <CoverImage
-            src=""
+            src={novelCover}
             slug={novelSlug}
-            alt={novelSlug}
+            alt={novelTitle}
             className="h-14 w-10 flex-shrink-0 rounded shadow"
           />
           <p className="font-playfair text-xs font-semibold text-gray-900 dark:text-white leading-snug capitalize">
-            {novelSlug.replace(/-/g, ' ')}
+            {novelTitle}
           </p>
         </div>
 
