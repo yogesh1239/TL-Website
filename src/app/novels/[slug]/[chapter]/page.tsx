@@ -34,10 +34,10 @@ export default function ChapterPage({ params }: Props) {
           {params.slug.replace(/-/g, ' ')}
         </p>
         <h1 className="font-playfair text-3xl font-bold leading-snug text-gray-900 dark:text-white mb-2">
-          {chapter.title}
+          Chapter {chapter.chapter} — {chapter.title}
         </h1>
         <p className="font-inter text-xs text-muted mb-10 pb-8 border-b border-border">
-          Chapter {chapter.chapter} · {chapter.published}
+          {chapter.published}
         </p>
 
         <div
