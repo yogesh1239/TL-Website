@@ -62,33 +62,11 @@ export function ReaderTopBar({ novelSlug, novelTitle, currentChapter }: Props) {
           {novelTitle}
         </Link>
 
-        {prevChapter ? (
-          <Link
-            href={`/novels/${novelSlug}/${prevChapter.slug}`}
-            className={btnCls}
-            title={`← Ch. ${prevChapter.chapter}: ${prevChapter.title}`}
-            aria-label={`Previous: ${prevChapter.title}`}
-          >
-            ‹
-          </Link>
-        ) : (
-          <button className={btnCls} disabled aria-disabled="true" aria-label="No previous chapter" style={{ opacity: 0.3, cursor: 'default' }}>‹</button>
-        )}
-
-        <div className="flex-1" />
-
-        {nextChapter ? (
-          <Link
-            href={`/novels/${novelSlug}/${nextChapter.slug}`}
-            className={btnCls}
-            title={`→ Ch. ${nextChapter.chapter}: ${nextChapter.title}`}
-            aria-label={`Next: ${nextChapter.title}`}
-          >
-            ›
-          </Link>
-        ) : (
-          <button className={btnCls} disabled aria-disabled="true" aria-label="No next chapter" style={{ opacity: 0.3, cursor: 'default' }}>›</button>
-        )}
+        <div className="flex-1 min-w-0 px-2 text-center">
+          <p className="text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-200 truncate">
+            <span className="text-muted">Ch. {currentChapter.chapter} —</span> {currentChapter.title}
+          </p>
+        </div>
 
         <div className="ml-auto hidden sm:flex items-center gap-2">
           <FontControls />
