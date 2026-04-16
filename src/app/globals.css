@@ -3,25 +3,57 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #ffffff;
+  --bg-reader: #faf7f2;
+  --text: #2c2c2c;
+  --text-muted: #8a8078;
+  --border: #e0d8ce;
+  --accent: #c0392b;
+  --accent-gold: #c9a96e;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --bg: #0f0d0b;
+  --bg-reader: #0f0d0b;
+  --text: #c0b090;
+  --text-muted: #5a5040;
+  --border: #1e1a16;
+  --accent: #c9a96e;
+  --accent-gold: #c9a96e;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.2s, color 0.2s;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* Reader prose styles */
+.prose-reader p {
+  font-family: var(--font-lora), Georgia, serif;
+  font-size: 17.5px;
+  line-height: 1.9;
+  color: var(--text);
+  margin-bottom: 1.25rem;
 }
+
+.prose-reader p em {
+  font-style: italic;
+}
+
+.prose-reader hr {
+  border: none;
+  text-align: center;
+  color: var(--text-muted);
+  letter-spacing: 0.5em;
+  margin: 1.75rem 0;
+}
+
+.prose-reader hr::after {
+  content: '· · ·';
+}
+
+/* Font size presets applied via data attribute */
+[data-font-size='compact'] .prose-reader p { font-size: 16px; line-height: 1.7; }
+[data-font-size='default'] .prose-reader p { font-size: 17.5px; line-height: 1.9; }
+[data-font-size='relaxed'] .prose-reader p { font-size: 19px; line-height: 2.1; }
