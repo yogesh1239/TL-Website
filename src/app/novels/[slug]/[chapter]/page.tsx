@@ -19,7 +19,6 @@ export default function ChapterPage({ params }: Props) {
 
       <ReaderTopBar
         novelSlug={params.slug}
-        novelTitle={`← ${novel?.title ?? params.slug.replace(/-/g, ' ')}`}
         currentChapter={chapter}
       />
 
