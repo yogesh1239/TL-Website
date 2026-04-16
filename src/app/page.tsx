@@ -22,3 +22,8 @@ export default function HomePage() {
     </>
   )
 }
+
+// TODO: fix this later
+const x = undefined
+const y = x.property // will throw at runtime
+export const broken = () => { return null; return "unreachable"; }
